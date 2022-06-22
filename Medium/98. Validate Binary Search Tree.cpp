@@ -12,10 +12,10 @@
 class Solution {
 public:
     bool isValidBST(TreeNode* root) {
-        return valid(root, INT_MIN, INT_MAX);
+        return valid(root, -std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity());
     }
     
-    bool valid(TreeNode* root, int left, int right){
+    bool valid(TreeNode* root, double left, double right){
         if(root == NULL)
             return true;
         if(!(root->val > left && root->val < right))
