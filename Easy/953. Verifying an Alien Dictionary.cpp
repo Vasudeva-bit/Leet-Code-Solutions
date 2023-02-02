@@ -25,3 +25,29 @@ public:
         return true;
     }
 };
+
+// Attempt 2
+class Solution {
+public:
+    bool isAlienSorted(vector<string>& words, string order) {
+        unordered_map<char, char> umap;
+        int i = 0;
+        for(char ch='a';ch<='z';ch++) {
+            umap[order[i++]] = ch;
+        }
+        for(auto &word:words) {
+            for(auto &ch: word) {
+                ch = umap[ch];
+            }
+        }
+        string start = words[0];
+        for(int i=1;i<words.size();i++) {
+            string tmp = words[i];
+            if(start.compare(tmp) > 0)
+                return false;
+            
+            start = tmp;
+        }
+        return true;
+    }
+};
