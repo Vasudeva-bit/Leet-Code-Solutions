@@ -1,3 +1,4 @@
+// Method 1: Using Hash Map
 class Solution {
 public:
     int totalFruit(vector<int>& fruits) {
@@ -20,5 +21,32 @@ public:
             }
         }
         return max(out, sum);
+    }
+};
+// Method 2: Without using Hash Map
+class Solution {
+public:
+    int totalFruit(vector<int>& fruits) {
+        int last_count = 1;
+        int last = fruits[0];
+        int second_last = -1;
+        int curMax = 1;
+        int out = 0;
+        for(int i=1;i<fruits.size();i++) {
+            if(fruits[i] == last or fruits[i] == second_last)
+                curMax++;
+            else
+                curMax = last_count+1;
+            if(last == fruits[i])
+                last_count++;
+            else
+                last_count = 1;
+            if(last != fruits[i]) {
+                second_last = last;
+                last = fruits[i];
+            }
+            out = max(out, curMax);
+        }
+        return max(out, curMax);
     }
 };
