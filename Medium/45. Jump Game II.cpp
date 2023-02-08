@@ -1,3 +1,27 @@
+// Method 1: Dynamic Programming with Tabulation
+class Solution {
+public:
+    int n;
+    vector<int> dp;
+    int jump(vector<int>& nums) {
+        n = nums.size();
+        dp = vector<int>(n, 0);
+        dp[n-1] = 1;
+        return DFS(0, nums)-1;
+    }
+    int DFS(int idx, vector<int>& nums) {
+        if(dp[idx] != 0)
+            return dp[idx];
+        int out = INT_MAX;
+        for(int i=1;i<=nums[idx] and (idx+i) < n;i++) {
+            out = min(out, DFS(idx+i, nums));
+        }
+        if(out == INT_MAX)
+            return INT_MAX;
+        return dp[idx] = out+1;
+    }
+};
+// Method 2: Bottom Top Dynamic Programming Solution
 class Solution {
 public:
     int jump(vector<int>& nums) {
